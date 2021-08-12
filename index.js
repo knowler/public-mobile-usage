@@ -1,8 +1,7 @@
 import {chromium} from 'playwright';
-import {config} from 'dotenv';
 
 // Load the .env file for username and password
-config();
+await import('dotenv').then(dotenv => dotenv.config());
 
 // Create a page in Chrome
 const browser = await chromium.launch({channel: 'chrome'});
