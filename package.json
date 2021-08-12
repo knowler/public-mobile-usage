@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "playwright": "^1.13.1"
+  },
+  "volta": {
+    "node": "16.6.2"
+  }
+}
