@@ -15,17 +15,17 @@ await page.fill('#FullContent_ContentBottom_LoginControl_Password', process.env.
 await page.click('#FullContent_ContentBottom_LoginControl_LoginButton');
 
 // Get the used and total for talk
-const talkUsed = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl0_VoiceUsedLiteral');
-const talkTotal = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl0_VoiceAllowanceLiteral');
+const talkUsed = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl0_VoiceUsedLiteral').then(el => el.textContent());
+const talkTotal = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl0_VoiceAllowanceLiteral').then(el => el.textContent());
 
 // Get the used and total for Data
-const dataUsed = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl1_VoiceUsedLiteral');
-const dataTotal = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl1_VoiceAllowanceLiteral');
+const dataUsed = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl1_VoiceUsedLiteral').then(el => el.textContent());
+const dataTotal = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl1_VoiceAllowanceLiteral').then(el => el.textContent());
 
 // Report the amounts
 console.info(`
-Talk: ${await talkUsed.textContent()} / ${await talkTotal.textContent()}
-Data: ${await dataUsed.textContent()} / ${await dataTotal.textContent()}
+Talk: ${talkUsed} / ${talkTotal}
+Data: ${dataUsed} / ${dataTotal}
 `.trim())
 
 // Peace out
