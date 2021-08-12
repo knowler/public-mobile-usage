@@ -8,6 +8,9 @@ config();
 const browser = await chromium.launch({channel: 'chrome'});
 const page = await browser.newPage();
 
+// Helper for getting text content
+const getTextContent = async selector => await page.waitForSelector(selector).then(element => element.textContent());
+
 // Login through the login page
 await page.goto('https://selfserve.publicmobile.ca')
 await page.fill('#FullContent_ContentBottom_LoginControl_UserName', process.env.USERNAME);
@@ -15,12 +18,12 @@ await page.fill('#FullContent_ContentBottom_LoginControl_Password', process.env.
 await page.click('#FullContent_ContentBottom_LoginControl_LoginButton');
 
 // Get the used and total for talk
-const talkUsed = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl0_VoiceUsedLiteral').then(el => el.textContent());
-const talkTotal = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl0_VoiceAllowanceLiteral').then(el => el.textContent());
+const talkUsed = await getTextContent('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl0_VoiceUsedLiteral');
+const talkTotal = await getTextContent('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl0_VoiceAllowanceLiteral');
 
 // Get the used and total for Data
-const dataUsed = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl1_VoiceUsedLiteral').then(el => el.textContent());
-const dataTotal = await page.waitForSelector('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl1_VoiceAllowanceLiteral').then(el => el.textContent());
+const dataUsed = await getTextContent('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl1_VoiceUsedLiteral');
+const dataTotal = await getTextContent('#ctl00_ctl00_FullContent_DashboardContent_Overview_Prepaid_AddonListView_ctrl1_VoiceAllowanceLiteral');
 
 // Report the amounts
 console.info(`
